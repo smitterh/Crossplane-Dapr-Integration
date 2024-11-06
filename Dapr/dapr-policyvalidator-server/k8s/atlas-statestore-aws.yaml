@@ -1,0 +1,31 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-statestore
+  namespace: policycenter
+spec:
+  type: state.mongodb
+  version: v1
+  metadata:
+  - name: keyPrefix
+    value: none
+  - name: server
+    secretKeyRef:
+      name: dapr/atlas/atlas_server
+      key: dapr/atlas/atlas_server
+  - name: username
+    secretKeyRef:
+      name: dapr/atlas/atlas_username
+      key: dapr/atlas/atlas_username
+  - name: password
+    secretKeyRef:
+      name: dapr/atlas/atlas_userpassword
+      key: dapr/atlas/atlas_userpassword
+  - name: databaseName
+    value: "fico_platform"
+  - name: collectionName
+    value: "configuration"
+  - name: params
+    value: "?retryWrites=true&w=majority&appName=Cluster0" # Optional. Example: "?authSource=daprStore&ssl=true"
+auth:
+  secretStore: awssecretmanager

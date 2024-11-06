@@ -1,0 +1,53 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: redis-lock
+  namespace: policycenter
+spec:
+  type: lock.redis
+  version: v1
+  metadata:
+  - name: keyPrefix
+    value: none
+  - name: redisHost
+    value: 172.20.175.177:6379
+  - name: redisPassword #Optional.
+    value: ""
+  - name: useEntraID
+    value: false  # Optional. Allowed: true, false.
+  - name: enableTLS
+    value: false  # Optional. Allowed: true, false.
+  - name: failover
+    value: false  # Optional. Allowed: true, false.
+  - name: maxRetries
+    value: 3 # Optional
+  - name: maxRetryBackoff
+    value: 2  # Optional
+  - name: failover
+    value: false # Optional
+  - name: redeliverInterval
+    value: "60s" # Optional
+  - name: processingTimeout
+    value: "30s" # Optional
+  - name: redisType
+    value: "node" # Optional
+  - name: redisDB
+    value: "0"  # Optional
+  - name: redisMinRetryInterval
+    value: "8ms" # Optional
+  - name: dialTimeout
+    value: "5s" # Optional
+  - name: readTimeout
+    value: "3s" # Optional
+  - name: writeTimeout
+    value: "3s" # Optional
+  - name: poolSize
+    value: "10" # Optional
+  - name: poolTimeout
+    value: "4s" # Optional
+  - name: minIdleConns
+    value: "0" # Optional
+  - name: idleCheckFrequency
+    value: "1m" # Optional
+  - name: idleTimeout
+    value: "5m" # Optional

@@ -1,0 +1,34 @@
+apiVersion: dapr.io/v1alpha1
+kind: Component
+metadata:
+  name: atlas-statestore
+spec:
+  type: state.mongodb
+  version: v1
+  metadata:
+  - name: keyPrefix
+    value: none
+  - name: server
+    secretKeyRef:
+      name: server
+      key: server
+  - name: username
+    secretKeyRef:
+      name: username
+      key: username
+  - name: password
+    secretKeyRef:
+      name: password
+      key: password
+  - name: databaseName
+    secretKeyRef:
+      name: databaseName
+      key: databaseName
+  - name: collectionName
+    secretKeyRef:
+      name: collectionName
+      key: collectionName
+  - name: params
+    value: "?retryWrites=true&w=majority&appName=Cluster0" # Optional. Example: "?authSource=daprStore&ssl=true"
+auth:
+  secretStore: local-secret-store
