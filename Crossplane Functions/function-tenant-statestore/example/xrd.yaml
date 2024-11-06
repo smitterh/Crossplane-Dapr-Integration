@@ -1,0 +1,52 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata: 
+  name: xplatformtenants.fico.org
+spec:
+  group: fico.org
+  names:
+    kind: XPlatformTenant
+    plural: xplatformtenants
+  claimNames:
+    kind: XPlatformTenantClaim
+    plural: xplatformtenantclaims
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  pulsarTenant:
+                    type: object
+                    properties:
+                      pulsarConnection:
+                        type: string
+                      pulsarClusterNamespace:
+                        type: string
+                      pulsarNamespace:
+                        type: string
+                      pulsarTenantId:
+                        type: string
+                      pulsarTopic:
+                        type: string
+                    required:
+                    - pulsarConnection
+                    - pulsarClusterNamespace
+                    - pulsarNamespace
+                    - pulsarTenantId
+                    - pulsarTopic
+              compositionRef:
+                 type: object
+                 properties:
+                   name: 
+                     type: string
+                     enum:
+                      - function-tenant-statestore

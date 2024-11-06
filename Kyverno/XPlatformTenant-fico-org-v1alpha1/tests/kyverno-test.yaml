@@ -1,0 +1,21 @@
+apiVersion: cli.kyverno.io/v1alpha1
+kind: Test
+metadata:
+  name: audit-pulsartopic-test
+policies:
+  - ../policies/
+resources:
+  - ../resources/
+results:
+  - policy: audit-pulsartopic
+    rule: check-retention-parameter
+    resources:
+      - tenant-1234567-mytopic
+    kind: Object 
+    result: pass 
+  - policy: audit-pulsartopic
+    rule: check-persistent-parameter
+    resources:
+      - tenant-1234567-mytopic
+    kind: Object 
+    result: pass 

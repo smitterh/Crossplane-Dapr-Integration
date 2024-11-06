@@ -1,0 +1,35 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: audit-pulsartopic
+spec:
+  validationFailureAction: Audit
+  rules:
+  - name: check-retention-parameter
+    match:
+      any:
+      - resources:
+          kinds:
+          - Object
+    validate:
+      message: "The 'retention' parameter in 'spec' must be set to '20h'."
+      pattern:
+        spec:
+          forProvider:
+              manifest:
+                spec:
+                    retentionTime: 20h
+  - name: check-persistent-parameter
+    match:
+      any:
+      - resources:
+          kinds:
+          - Object
+    validate:
+      message: "The 'persistent' parameter in 'spec' must be set to 'True'."
+      pattern:
+        spec:
+          forProvider:
+              manifest:
+                spec:
+                    persistent: True
