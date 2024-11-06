@@ -1,0 +1,12 @@
+apiVersion: pkg.crossplane.io/v1
+kind: Function
+metadata:
+  name: function-policy-validation
+  annotations:
+    # This tells crossplane beta render to connect to the function locally.
+    render.crossplane.io/runtime: Development
+spec:
+  # This is ignored when using the Development runtime.
+  package: 466855634803.dkr.ecr.us-west-2.amazonaws.com/crossplane-functions/function-policy-validation:0.0.4
+  runtimeConfigRef:   
+    name: function-policy-validation-deployment-config

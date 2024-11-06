@@ -1,0 +1,16 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: create-platform-tenant-detect-ready
+spec:
+  compositeTypeRef:
+    apiVersion: fico.org/v1alpha1
+    kind: XPlatformTenant
+  mode: Pipeline
+  pipeline:
+  - step: function-tenant-statestore
+    functionRef:
+      name: function-tenant-statestore
+  - step: detect-ready-composed-resources
+    functionRef:
+      name: function-auto-ready

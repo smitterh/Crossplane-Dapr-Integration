@@ -1,0 +1,18 @@
+# DeploymentRuntimeConfig to inject Dapr to a function
+# Change dapr.io/app-id annotation to match your function name
+apiVersion: pkg.crossplane.io/v1beta1
+kind: DeploymentRuntimeConfig
+metadata:
+  name: function-policy-validation-deployment-config
+spec:
+  deploymentTemplate:
+     metadata:
+      labels:
+     spec:
+       selector: {}
+       template:
+         metadata:
+            annotations:
+              dapr.io/enabled: "true"
+              dapr.io/scheduler-host-address: ""
+              dapr.io/app-id: "function-policy-validation"

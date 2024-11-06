@@ -1,0 +1,49 @@
+{
+  "meta": {
+    "ttl": "60s"
+  },
+  "desired": {
+    "resources": {
+      "tenant-4351367": {
+        "resource": {
+          "kind": "Object",
+          "metadata": {
+            "name": "tenant-4351367"
+          },
+          "apiVersion": "kubernetes.crossplane.io/v1alpha2",
+          "spec": {
+            "providerConfigRef": {
+              "name": "provider-kubernetes"
+            },
+            "forProvider": {
+              "manifest": {
+                "kind": "PulsarTenant",
+                "metadata": {
+                  "namespace": "pulsar-1",
+                  "labels": {
+                    "extralabel": "labelvalue"
+                  },
+                  "annotations": {},
+                  "name": "tenant-4351367"
+                },
+                "apiVersion": "resource.streamnative.io/v1alpha1",
+                "spec": {
+                  "connectionRef": {
+                    "name": "pulsar-connection"
+                  },
+                  "adminRoles": [
+                    "admin",
+                    "ops"
+                  ],
+                  "lifecyclePolicy": "CleanUpAfterDeletion",
+                  "name": "tenant-4351367"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "context": {}
+}

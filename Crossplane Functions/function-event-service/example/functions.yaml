@@ -1,0 +1,13 @@
+---
+apiVersion: pkg.crossplane.io/v1beta1
+kind: Function
+metadata:
+  name: function-event-service
+  annotations:
+    # This tells crossplane beta render to connect to the function locally.
+    render.crossplane.io/runtime: Development
+spec:
+  # This is ignored when using the Development runtime.
+  package: 466855634803.dkr.ecr.us-west-2.amazonaws.com/crossplane-functions/function-event-service:0.0.13
+  runtimeConfigRef:   
+    name: function-event-service-deployment-config

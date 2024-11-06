@@ -1,0 +1,105 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "function"
+description = 'A composition function'
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = "Apache-2.0"
+keywords = []
+authors = [{ name = "Crossplane Maintainers", email = "info@crossplane.io" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+  "requests==2.32.2",
+  "crossplane-function-sdk-python==0.5.0",
+  "click==8.1.7",
+  "grpcio==1.66.2",
+]
+
+dynamic = ["version"]
+
+[project.urls]
+Documentation = "https://github.com/crossplane/function-template-python#readme"
+Issues = "https://github.com/crossplane/function-template-python/issues"
+Source = "https://github.com/crossplane/function-template-python"
+
+[project.scripts]
+function = "function.main:cli"
+
+[tool.hatch.build.targets.wheel]
+packages = ["function"]
+
+[tool.hatch.version]
+path = "function/__version__.py"
+validate-bump = false            # Allow going from 0.0.0.dev0+x to 0.0.0.dev0+y.
+
+[tool.hatch.envs.default]
+type = "virtual"
+path = ".venv-default"
+dependencies = ["ipython==8.28.0"]
+
+[tool.hatch.envs.default.scripts]
+development = "python function/main.py --insecure --debug"
+
+# This special environment is used by hatch fmt.
+[tool.hatch.envs.hatch-static-analysis]
+dependencies = ["ruff==0.6.9"]
+config-path = "none"           # Disable Hatch's default Ruff config.
+
+[tool.ruff]
+target-version = "py311"
+exclude = ["function/proto/*"]
+
+[tool.ruff.lint]
+select = [
+  "A",
+  "ARG",
+  "ASYNC",
+  "B",
+  "C",
+  "D",
+  "DTZ",
+  "E",
+  "EM",
+  "ERA",
+  "F",
+  "FBT",
+  "I",
+  "ICN",
+  "ISC",
+  "N",
+  "PLC",
+  "PLE",
+  "PLR",
+  "PLW",
+  "Q",
+  "RUF",
+  "S",
+  "T",
+  "TID",
+  "UP",
+  "W",
+  "YTT",
+]
+ignore = ["ISC001"] # Ruff warns this is incompatible with ruff format.
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"] # Don't require docstrings for tests.
+
+[tool.ruff.lint.isort]
+known-first-party = ["function"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.pep8-naming]
+# gRPC requires this PascalCase function name.
+extend-ignore-names = ["RunFunction"]

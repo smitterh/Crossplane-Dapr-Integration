@@ -1,0 +1,18 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: function-event-service
+spec:
+  compositeTypeRef:
+    apiVersion: example.crossplane.io/v1
+    kind: XR
+  mode: Pipeline
+  pipeline:
+  - step: function-event-service
+    functionRef:
+      name: function-event-service
+    input:
+      apiVersion: function-event-services.template.fn.crossplane.io/v1beta1
+      kind: Input
+      watch: "XPlatformTenant"
+      expiryInSeconds: 600
