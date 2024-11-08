@@ -54,7 +54,7 @@ spec:
     spec:
       containers:
       - name: policyvalidator
-        image: 466855634803.dkr.ecr.us-west-2.amazonaws.com/dapr/policyvalidator:0.0.16
+        image: <IMAGE_NAME>:<TAG>
         imagePullPolicy: Always
         volumeMounts:
         - name: persistent-storage
